@@ -22,7 +22,8 @@
     "/>
     <script src="json2.js"></script>
   </head> 
-  <body bgcolor="black" height="100%" width="100%"> 
+  <body bgcolor="white" height="100%" width="100%"> 
+        <img id="scream" width="0" height="0" src="star.gif" alt="The Scream">
     <canvas id="c" width="100%" height="100%" style="-webkit-tap-highlight-color: transparent;"></canvas> 
     <script>
 var canvas = document.getElementById('c');
@@ -75,17 +76,25 @@ function drawCircle(context,entity) {
         //moveTo(x,y);
         fillStyle = entity["colour"];
         strokeStyle = fillStyle;
-        arc(x, y, (entity["radius"])?entity["radius"]:50, 0, 2.0 * Math.PI, false);  
+        arc(x, y, (entity["radius"])?entity["radius"]:50, 0, 2.0 * Math.PI, false); 
+        var img = document.getElementById("scream");
+        drawImage(img, x+5, y+5, 40, 40);   
+        // drawImage(img, x-20, y+5, 40, 40);   
+        // drawImage(img, x+5, y-20, 40, 40); 
+        // drawImage(img, x-20, y-20, 40, 40); 
+        // fillStyle = "#00ff0c";
+        // strokeStyle = fillStyle;
+        arc(x, y, (entity["radius"]+10)?entity["radius"]+10:50, 2.0 * Math.PI, 0, false);  
         stroke();                                
     }
 }
 
 function prepEntity(entity) {
     if (!entity["colour"]) {
-        entity["colour"] = "#FF0000";
+        entity["colour"] = "#00ff0c";
     }
     if (!entity["radius"]) {
-        entity["radius"] = 50;
+        entity["radius"] = 40;
     }
     return entity;
 }
@@ -93,7 +102,7 @@ function prepEntity(entity) {
 function clearFrame() {
     with(context) {
 	moveTo(0,0);
-	fillStyle = "#000";
+	fillStyle = "white";
 	fillRect(0,0,W,H);
     }
 
@@ -266,8 +275,8 @@ mouse.mouseuppers.push(function(x,y,clicked,e) {
 });
 
 mouse.mousedraggers.push(function(x,y,clicked,e) {
-    addEntityWithoutName({'x':x,'y':y,'colour':'green',
-                          'radius':10});
+    addEntityWithoutName({'x':x,'y':y,'colour':'#00ff0c',
+                          'radius':2});
 });
 
 function getWorld(w){
